@@ -1,16 +1,3 @@
-// ============================================================
-// app/editar/[id].tsx  →  Rota: "/editar/:id"
-//
-// Tela de edição de um livro existente.
-// O "[id]" no nome do arquivo é o parâmetro dinâmico da rota —
-// funciona igual ao ":id" nas rotas do Express no backend.
-//
-// Fluxo:
-//  1. Pega o "id" da URL
-//  2. Busca os dados desse livro no backend (GET /livros/:id)
-//  3. Preenche o formulário com os dados encontrados
-//  4. Ao salvar, envia PUT /livros/:id com os novos dados
-// ============================================================
 
 import React, { useState, useEffect } from "react";
 import { View, ActivityIndicator, Text, StyleSheet, Alert } from "react-native";
@@ -21,20 +8,15 @@ import FormLivro from "../../components/FormLivro";
 export default function TelaEditar() {
   const router = useRouter();
 
-  // useLocalSearchParams() lê os parâmetros da URL atual
-  // Como o arquivo se chama [id].tsx, o parâmetro será "id"
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const [livro, setLivro] = useState<Livro | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
-  // Busca os dados do livro ao abrir a tela
   useEffect(() => {
     async function carregarLivro() {
       try {
-        // Buscamos todos e filtramos pelo id
-        // (uma alternativa seria ter GET /livros/:id no nosso service)
         const todos = await getLivros();
         const encontrado = todos.find((l) => l.id === id);
 
@@ -51,11 +33,11 @@ export default function TelaEditar() {
     }
 
     carregarLivro();
-  }, [id]); // roda quando "id" mudar (na prática, só ao abrir a tela)
+  }, [id]); 
 
   async function handleSalvar(dados: LivroInput) {
     try {
-      await atualizarLivro(id!, dados); // chama PUT /livros/:id
+      await atualizarLivro(id!, dados); 
       Alert.alert("✅ Sucesso", "Livro atualizado com sucesso!", [
         { text: "OK", onPress: () => router.back() },
       ]);
@@ -64,7 +46,6 @@ export default function TelaEditar() {
     }
   }
 
-  // ── Loading enquanto busca os dados ─────────────────────
   if (carregando) {
     return (
       <View style={styles.centro}>
@@ -74,7 +55,6 @@ export default function TelaEditar() {
     );
   }
 
-  // ── Erro ao carregar ─────────────────────────────────────
   if (erro || !livro) {
     return (
       <View style={styles.centro}>
@@ -83,10 +63,8 @@ export default function TelaEditar() {
     );
   }
 
-  // ── Formulário preenchido com os dados do livro ──────────
   return (
     <FormLivro
-      // "valoresIniciais" preenche o formulário com os dados atuais do livro
       valoresIniciais={{
         titulo: livro.titulo,
         autor: livro.autor,

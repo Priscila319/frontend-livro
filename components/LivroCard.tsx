@@ -11,9 +11,9 @@ type Props = {
 };
 
 export default function LivroCard({ livro, onDeletado }: Props) {
-  const router = useRouter(); // hook de navegação do Expo Router
+  const router = useRouter(); 
 
-  // Função que pede confirmação antes de deletar
+  
   function confirmarDelecao() {
     Alert.alert(
       "Deletar livro",
@@ -25,7 +25,7 @@ export default function LivroCard({ livro, onDeletado }: Props) {
           style: "destructive",
           onPress: async () => {
             await deletarLivro(livro.id);
-            onDeletado(); // avisa a tela pai para recarregar a lista
+            onDeletado(); 
           },
         },
       ]
@@ -34,7 +34,6 @@ export default function LivroCard({ livro, onDeletado }: Props) {
 
   return (
     <View style={styles.card}>
-      {/* Informações do livro */}
       <View style={styles.info}>
         <Text style={styles.titulo} numberOfLines={1}>{livro.titulo}</Text>
         <Text style={styles.autor}>{livro.autor}</Text>
@@ -52,11 +51,11 @@ export default function LivroCard({ livro, onDeletado }: Props) {
         </View>
       </View>
 
-      {/* Botões de ação */}
+      
       <View style={styles.acoes}>
         <TouchableOpacity
           style={[styles.btn, styles.btnEditar]}
-          // Navega para a tela de edição passando o ID na URL
+          
           onPress={() => router.push(`/editar/${livro.id}`)}
         >
           <Text style={styles.btnText}>✏️</Text>

@@ -8,14 +8,13 @@ import FormLivro from "../components/FormLivro";
 export default function TelaNovo() {
   const router = useRouter();
 
-  // Função chamada pelo FormLivro quando o usuário aperta salvar
   async function handleSalvar(dados: LivroInput) {
     try {
-      await criarLivro(dados);  // chama POST /livros com os dados do form
+      await criarLivro(dados);  
       Alert.alert("✅ Sucesso", "Livro cadastrado com sucesso!", [
         {
           text: "OK",
-          // Ao confirmar, volta para a tela anterior (a lista)
+          
           onPress: () => router.back(),
         },
       ]);
@@ -28,7 +27,7 @@ export default function TelaNovo() {
     <FormLivro
       textoBotao="Cadastrar livro"
       onSalvar={handleSalvar}
-      // Sem "valoresIniciais" = campos começam vazios (modo criação)
+
     />
   );
 }

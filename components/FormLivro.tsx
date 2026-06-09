@@ -14,31 +14,27 @@ import {
 import { LivroInput } from "../services/api";
 
 type Props = {
-  // Dados iniciais (undefined = tela de criação, objeto = tela de edição)
+  
   valoresIniciais?: Partial<LivroInput>;
 
-  // Função chamada quando o usuário aperta "Salvar"
   onSalvar: (dados: LivroInput) => Promise<void>;
 
-  // Texto do botão de salvar (ex: "Cadastrar" ou "Salvar alterações")
   textoBotao: string;
 };
 
 export default function FormLivro({ valoresIniciais, onSalvar, textoBotao }: Props) {
-  // Cada campo do formulário tem seu próprio estado
+  
   const [titulo, setTitulo] = useState(valoresIniciais?.titulo ?? "");
   const [autor, setAutor] = useState(valoresIniciais?.autor ?? "");
   const [ano, setAno] = useState(valoresIniciais?.ano?.toString() ?? "");
   const [genero, setGenero] = useState(valoresIniciais?.genero ?? "");
 
-  // Controla se a requisição está em andamento (para mostrar loading no botão)
   const [salvando, setSalvando] = useState(false);
 
-  // Erro de validação local (antes de chamar a API)
   const [erroValidacao, setErroValidacao] = useState<string | null>(null);
 
   async function handleSalvar() {
-    // Validação antes de enviar
+    
     if (!titulo.trim() || !autor.trim()) {
       setErroValidacao("Título e autor são obrigatórios.");
       return;
@@ -60,7 +56,7 @@ export default function FormLivro({ valoresIniciais, onSalvar, textoBotao }: Pro
   }
 
   return (
-    // KeyboardAvoidingView: sobe o conteúdo quando o teclado aparece
+    
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}

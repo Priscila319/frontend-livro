@@ -71,20 +71,18 @@ export default function TelaInicial() {
   
   return (
     <View style={styles.container}>
-      {/* FlatList é o componente ideal para listas longas no React Native.
-          Ele renderiza apenas os itens visíveis na tela (lazy rendering),
-          o que é muito mais eficiente que um ScrollView com map(). */}
+      
       <FlatList
         data={livros}
-        keyExtractor={(item) => item.id} // chave única de cada item
+        keyExtractor={(item) => item.id} 
         renderItem={({ item }) => (
           <LivroCard
             livro={item}
-            onDeletado={carregarLivros} // recarrega a lista após deletar
+            onDeletado={carregarLivros} 
           />
         )}
         contentContainerStyle={styles.lista}
-        // Pull to refresh: puxar a lista para baixo recarrega
+        
         refreshControl={
           <RefreshControl
             refreshing={carregando}
@@ -92,7 +90,7 @@ export default function TelaInicial() {
             tintColor="#E8B86D"
           />
         }
-        // Mensagem quando não há livros cadastrados
+        
         ListEmptyComponent={
           <View style={styles.centro}>
             <Text style={styles.emoji}>📭</Text>
@@ -100,7 +98,7 @@ export default function TelaInicial() {
             <Text style={styles.textoSecundario}>Toque em "+" para adicionar!</Text>
           </View>
         }
-        // Cabeçalho da lista com contador
+        
         ListHeaderComponent={
           livros.length > 0 ? (
             <Text style={styles.contador}>
@@ -110,7 +108,6 @@ export default function TelaInicial() {
         }
       />
 
-      {/* Botão flutuante para adicionar novo livro */}
       <TouchableOpacity
         style={styles.fab}
         onPress={() => router.push("/novo")} // navega para a tela de cadastro
@@ -128,7 +125,7 @@ const styles = StyleSheet.create({
   },
   lista: {
     padding: 16,
-    paddingBottom: 100, // espaço para o botão flutuante não cobrir o último item
+    paddingBottom: 100, 
   },
   centro: {
     flex: 1,
@@ -177,7 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     letterSpacing: 0.5,
   },
-  // FAB = Floating Action Button (botão "+" flutuante)
+  
   fab: {
     position: "absolute",
     bottom: 32,

@@ -23,8 +23,8 @@ export async function getLivros(): Promise<Livro[]> {
 export async function criarLivro(dados: LivroInput): Promise<Livro> {
   const resposta = await fetch(`${BASE_URL}/livros`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" }, // avisa que estamos enviando JSON
-    body: JSON.stringify(dados),                       // converte o objeto para texto JSON
+    headers: { "Content-Type": "application/json" }, 
+    body: JSON.stringify(dados),                       
   });
   if (!resposta.ok) throw new Error("Erro ao criar livro");
   return resposta.json();
